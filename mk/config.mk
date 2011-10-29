@@ -1,5 +1,5 @@
 ######################################################################
-# File: Makefile                                   Part of The Raven #
+# File: mk/build.mk                                Part of The Raven #
 #                                                                    #
 # Copyright (C) 2011, Joachim Pileborg and individual contributors.  #
 # All rights reserved.                                               #
@@ -34,25 +34,15 @@
 #                                                                    #
 ######################################################################
 
-TOPDIR  = .
-SUBDIRS = src
+CXX_WARNING_FLAGS = -Wall -Wextra -Weffc++
+CXX_DEBUG_FLAGS   = -ggdb3
+CXX_HEADER_FLAGS  =
+CXX_DEFINED       =
+CXX_LOCAL_FLAGS   = -std=c++11
 
-######################################################################
+LD_DEBUG_FLAGS    = -ggdb3
+LD_LOCAL_FLAGS    =
 
-.PHONY: default
-default: all
-
-.PHONY: all
-all:
-	for d in $(SUBDIRS); do $(MAKE) -C $$d all; done
-
-######################################################################
-
-.PHONY: help
-help:
-
-######################################################################
-
-include $(TOPDIR)/mk/clean.mk
+LD_LOCAL_LIBS     =
 
 ######################################################################

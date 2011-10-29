@@ -1,5 +1,5 @@
 ######################################################################
-# File: Makefile                                   Part of The Raven #
+# File: mk/build_vars.mk                           Part of The Raven #
 #                                                                    #
 # Copyright (C) 2011, Joachim Pileborg and individual contributors.  #
 # All rights reserved.                                               #
@@ -34,25 +34,11 @@
 #                                                                    #
 ######################################################################
 
-TOPDIR  = .
-SUBDIRS = src
+CXX = g++
+LD  = g++
 
-######################################################################
-
-.PHONY: default
-default: all
-
-.PHONY: all
-all:
-	for d in $(SUBDIRS); do $(MAKE) -C $$d all; done
-
-######################################################################
-
-.PHONY: help
-help:
-
-######################################################################
-
-include $(TOPDIR)/mk/clean.mk
+CXXFLAGS = $(CXX_WARNING_FLAGS) $(CXX_DEBUG_FLAGS) $(CXX_HEADER_FLAGS) $(CXX_DEFINES)
+LDFLAGS  = $(LD_DEBUG_FLAGS) $(LD_LOCAL_FLAGS)
+LIBS     = $(LD_LOCAL_LIBS)
 
 ######################################################################

@@ -34,8 +34,12 @@
 #                                                                    #
 ######################################################################
 
-TOPDIR  = .
-SUBDIRS = src
+TOPDIR  = ..
+SUBDIRS =
+
+TARGET  = raven
+SOURCES = raven.cpp
+HEADERS = raven.h
 
 ######################################################################
 
@@ -43,16 +47,13 @@ SUBDIRS = src
 default: all
 
 .PHONY: all
-all:
-	for d in $(SUBDIRS); do $(MAKE) -C $$d all; done
+all: build
 
 ######################################################################
-
-.PHONY: help
-help:
 
 ######################################################################
 
 include $(TOPDIR)/mk/clean.mk
+include $(TOPDIR)/mk/build.mk
 
 ######################################################################

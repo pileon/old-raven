@@ -1,5 +1,5 @@
 ######################################################################
-# File: Makefile                                   Part of The Raven #
+# File: mk/build.mk                                Part of The Raven #
 #                                                                    #
 # Copyright (C) 2011, Joachim Pileborg and individual contributors.  #
 # All rights reserved.                                               #
@@ -33,26 +33,50 @@
 # SUCH DAMAGE.                                                       #
 #                                                                    #
 ######################################################################
+#
+# This file is to be included in all makefiles that want to build a
+# target
 
-TOPDIR  = .
-SUBDIRS = src
+include $(TOPDIR)/mk/config.mk
+include $(TOPDIR)/mk/build_vars.mk
 
-######################################################################
+OBJECTS = $(SOURCES:%.cpp=%.o)
 
-.PHONY: default
-default: all
-
-.PHONY: all
-all:
-	for d in $(SUBDIRS); do $(MAKE) -C $$d all; done
+# TODO: Dependencies (separate file?)
 
 ######################################################################
 
-.PHONY: help
-help:
+.o: .cpp
+	$(CXX) $(CXXFLAGS) -c -o $@ $^
+
+$(TARGET): $(OBJECTS)
+	$(LD) $(LDFLAGS) -o $@ $^ $(LIBS)
 
 ######################################################################
 
-include $(TOPDIR)/mk/clean.mk
+.PHONY: build
+build: __pre_build __target_build __post_build
+
+.PHONY: __pre_build
+__pre_build: .deps
+
+.PHONY: __post_build
+__post_build:
+
+.PHONY: __target_build
+__target_build: $(TARGET)
+
+.deps:
+	-mkdir .deps
+
+######################################################################
+
+.PHONY: __clean
+__clean::
+	-rm -f $(OBJECTS)
+
+.PHONY: __realclean
+__realclean::
+	-rm -f $(TARGET)
 
 ######################################################################
