@@ -1,0 +1,7 @@
+# Ignore some type of files
+
+\#*
+.#*
+*~
+*.[oa]
+*.so
