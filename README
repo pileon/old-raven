@@ -45,3 +45,25 @@ The library
 -----------
 The library is the actual world; This is where the creators of the
 game-world puts all their creations, be it monsters, castles or weapons.
+
+
+Building
+========
+
+Building The Raven is supposed to be easy, as long as you have the right
+tools.
+
+Prerequisites
+-------------
+
+Tools
+~~~~~
+* GNU C++ compiler, version 4.6 or later
+* GNU Make version 3.80 or later.
+
+Libraries
+~~~~~~~~~
+
+Building
+--------
+Standing in the top directory, a simple `make` will be enough.
