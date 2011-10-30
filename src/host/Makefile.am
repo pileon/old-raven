@@ -43,14 +43,14 @@ AM_CXXFLAGS = @EXTRA_CXXFLAGS@ -I$(top_srcdir) -I..
 
 ######################################################################
 
-noinst_LIBRARIES   = libhost.a
+# noinst_LIBRARIES   = libhost.a
 
-noinst_HEADERS     = sysdeps.h sig.h
+noinst_HEADERS     = sysdeps.h
 
-libhost_a_SOURCES  =
-@IFNEQ@ (,$(findstring linux,$(host_os)))
-libhost_a_SOURCES += posix/signal.cpp
-@ENDIF@
+# libhost_a_SOURCES  =
+# @IFNEQ@ (,$(findstring linux,$(host_os)))
+# libhost_a_SOURCES += posix/signal.cpp
+# @ENDIF@
 
 ######################################################################
 
