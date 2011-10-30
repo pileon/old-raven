@@ -51,13 +51,66 @@ namespace
     void clean()
     {
     }
+
+    /* ************************************************************ */
+
+    void draw_title_box()
+    {
+        for (int i = 0; i < 16; i++)
+            std::cout << " ";
+        std::cout << u8"\u2554\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2557\n";
+
+        for (int i = 0; i < 16; i++)
+            std::cout << u8"\u2500";
+        std::cout << u8"\u2562 The Raven \u255f";
+        for (int i = 0; i < 51; i++)
+            std::cout << u8"\u2500";
+        std::cout << "\n";
+
+        for (int i = 0; i < 16; i++)
+            std::cout << " ";
+        std::cout << u8"\u255a\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u255d\n";
+    }
+
+    void draw_end_title()
+    {
+        for (int i = 0; i < 80; i++)
+            std::cout << u8"\u2500";
+        std::cout << "\n";
+    }
+
 }
 
 /* **************************************************************** */
 
 int main(int argc, char *argv[])
 {
-    std::cout << "Hello world!\n";
+    draw_title_box();
+
+#if WITH_MTRACE && HAVE_MTRACE
+    mtrace();
+#endif
+
+#if HAVE___GNU_CXX____VERBOSE_TERMINATE_HANDLER
+    std::set_terminate(__gnu_cxx::__verbose_terminate_handler);
+#endif
+
+    if (!init(argc, argv))
+    {
+        clean();
+        draw_end_title();
+        return 1;
+    }
+
+    // run();
+
+    std::cout << std::flush;
+    std::cout << std::endl;
+
+    clean();
+    draw_end_title();
+
+    return 0;
 }
 
 void exit()
