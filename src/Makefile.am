@@ -1,5 +1,6 @@
+# Process this file with automake to produce a Makefile.in template
 ######################################################################
-# File: mk/build.mk                                Part of The Raven #
+# File: src/Makefile.am                            Part of The Raven #
 #                                                                    #
 # Copyright (C) 2011, Joachim Pileborg and individual contributors.  #
 # All rights reserved.                                               #
@@ -33,50 +34,44 @@
 # SUCH DAMAGE.                                                       #
 #                                                                    #
 ######################################################################
-#
-# This file is to be included in all makefiles that want to build a
-# target
 
-include $(TOPDIR)/mk/config.mk
-include $(TOPDIR)/mk/build_vars.mk
+AUTOMAKE_OPTIONS = subdir-objects
 
-OBJECTS = $(SOURCES:%.cpp=%.o)
+# SUBDIRS    = host
+CLEANFILES = *~
 
-# TODO: Dependencies (separate file?)
+AM_CXXFLAGS = @EXTRA_CXXFLAGS@
 
-######################################################################
+# LDFLAGS_BOOST = \
+# 	$(BOOST_SYSTEM_LDFLAGS) \
+# 	$(BOOST_PROGRAM_OPTIONS_LDFLAGS) \
+# 	$(BOOST_SIGNALS_LDFLAGS) \
+# 	$(BOOST_DATE_TIME_LDFLAGS) \
+# 	$(BOOST_ASIO_LDFLAGS)
 
-.o: .cpp
-	$(CXX) $(CXXFLAGS) -c -o $@ $^
+# LIBS_BOOST = \
+# 	$(BOOST_SYSTEM_LIBS) \
+# 	$(BOOST_PROGRAM_OPTIONS_LIBS) \
+# 	$(BOOST_SIGNALS_LIBS) \
+# 	$(BOOST_DATE_TIME_LIBS) \
+# 	$(BOOST_ASIO_LIBS)
 
-$(TARGET): $(OBJECTS)
-	$(LD) $(LDFLAGS) -o $@ $^ $(LIBS)
-
-######################################################################
-
-.PHONY: build
-build: __pre_build __target_build __post_build
-
-.PHONY: __pre_build
-__pre_build: .deps
-
-.PHONY: __post_build
-__post_build:
-
-.PHONY: __target_build
-__target_build: $(TARGET)
-
-.deps:
-	-mkdir .deps
+AM_CPPFLAGS = $(BOOST_CPPFLAGS)
+AM_LDFLAGS  = $(LDFLAGS_BOOST)
+# LIBS       +=  host/libhost.a $(LIBS_BOOST)
 
 ######################################################################
 
-.PHONY: __clean
-__clean::
-	-rm -f $(OBJECTS)
+noinst_PROGRAMS = raven
 
-.PHONY: __realclean
-__realclean::
-	-rm -f $(TARGET)
+noinst_HEADERS  = raven.h version.h
+
+raven_SOURCES   = host/posix/main.cpp raven.cpp version.cpp
+
+raven_LDADD     = $(LIBOBJS)
+
+######################################################################
+
+# TODO: count and count16k, and maybe other count targets (like sloccount)?
 
 ######################################################################

@@ -8,3 +8,29 @@
 
 # The MUD server program, do not track!
 src/raven
+
+# Files for automake/autoconf
+aclocal.m4
+autom4te.cache/
+configure
+scripts/config.guess
+scripts/config.sub
+scripts/depcomp
+scripts/install-sh
+scripts/libtool.m4
+scripts/ltmain.sh
+scripts/ltoptions.m4
+scripts/ltsugar.m4
+scripts/ltversion.m4
+scripts/lt~obsolete.m4
+scripts/missing
+autoconf.h.in
+config.log
+config.status
+Makefile
+Makefile.in
+libtool
+.deps
+autoconf.h
+stamp-h1
+.dirstamp

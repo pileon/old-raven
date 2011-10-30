@@ -1,8 +1,8 @@
-/* -*- mode: C++; coding: utf-8 -*- */
-#ifndef __RAVEN_H__
-#define __RAVEN_H__ 1
+/* -*- mode: c++; coding: utf-8 -*- */
+#ifndef __VERSION_H__
+#define __VERSION_H__ 1
 /* *******************************************************************
-* File: raven.h                                    Part of The Raven *
+* File: version.h                                  Part of The Raven *
 *                                                                    *
 * Copyright (C) 2011, Joachim Pileborg and individual contributors.  *
 * All rights reserved.                                               *
@@ -37,22 +37,24 @@
 *                                                                    *
 ******************************************************************* */
 
-#if HAVE_CONFIG_H
-# include "host/autoconf.h"
-#endif
-#include "host/sysdeps.h"
-
-#include "config.h"
-
 namespace raven {
 
-/* **************************************************************** */
-
-int main(int argc, char *argv[]);
-void exit();
+//! MUD version information
+namespace version {
 
 /* **************************************************************** */
 
+extern const char *compile_date;    //!< The compilation date
+extern const char *compile_time;    //!< The compilation time
+
+extern const char *driver_name;     //!< Package name
+extern const char *driver_version;  //!< Package version
+extern const char *driver_tag;      //!< Package string
+extern const char *driver_author;   //!< Package bugreport email address
+
+/* **************************************************************** */
+
+} // namespace version
 } // namespace raven
 
-#endif // __RAVEN_H__
+#endif // __VERSION_H__
