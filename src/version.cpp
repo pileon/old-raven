@@ -52,5 +52,5 @@ const char *driver_author  = PACKAGE_BUGREPORT;
 
 /* **************************************************************** */
 
-} /* namespace version */
-} /* namespace raven */
+} // namespace version
+} // namespace raven

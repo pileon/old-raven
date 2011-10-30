@@ -54,7 +54,7 @@ extern const char *driver_author;   //!< Package bugreport email address
 
 /* **************************************************************** */
 
-} /* namespace version */
-} /* namespace raven */
+} // namespace version
+} // namespace raven
 
-#endif /* __VERSION_H__ */
+#endif // __VERSION_H__
