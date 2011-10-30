@@ -1,8 +1,6 @@
-/* -*- mode: C++; coding: utf-8 -*- */
-#ifndef __RAVEN_H__
-#define __RAVEN_H__ 1
+/* -*- coding: utf-8 -*- */
 /* *******************************************************************
-* File: raven.h                                    Part of The Raven *
+* File:                                            Part of The Raven *
 *                                                                    *
 * Copyright (C) 2011, Joachim Pileborg and individual contributors.  *
 * All rights reserved.                                               *
@@ -37,20 +35,13 @@
 *                                                                    *
 ******************************************************************* */
 
-#if HAVE_CONFIG_H
-# include "host/autoconf.h"
-#endif
-#include "host/sysdeps.h"
-
-namespace raven {
+#include "raven.h"
 
 /* **************************************************************** */
 
-int main(int argc, char *argv[]);
-void exit();
+int main(int argc, char *argv[])
+{
+	return raven::main(argc, argv);
+}
 
 /* **************************************************************** */
-
-} // namespace raven
-
-#endif // __RAVEN_H__

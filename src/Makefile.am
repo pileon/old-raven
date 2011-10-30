@@ -66,7 +66,7 @@ noinst_PROGRAMS = raven
 
 noinst_HEADERS  = raven.h version.h
 
-raven_SOURCES   = raven.cpp version.cpp
+raven_SOURCES   = host/unix_main.cpp raven.cpp version.cpp
 
 raven_LDADD     = $(LIBOBJS)
 
