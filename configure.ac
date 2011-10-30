@@ -218,6 +218,8 @@ AC_LINK_IFELSE(
   [AC_MSG_RESULT(no)])
 
 AC_MSG_CHECKING([if ${CXX-g++} supports nullptr])
+old_CXXFLAGS=$CXXFLAGS
+CXXFLAGS=$EXTRA_CXXFLAGS
 AC_LINK_IFELSE(
   [AC_LANG_PROGRAM(
     [],
@@ -228,6 +230,7 @@ AC_LINK_IFELSE(
    AC_DEFINE(HAVE_NULLPTR, 1,
      [Define to 1 if the compiler supports the nullptr C++0x constant])],
   [AC_MSG_RESULT(no)])
+CXXFLAGS=$old_CXXFLAGS
 
 AC_MSG_CHECKING([if ${CXX-g++} supports computed gotos])
 AC_COMPILE_IFELSE(
