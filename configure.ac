@@ -36,7 +36,7 @@ dnl #                                                                    #
 dnl ######################################################################
 dnl # Information on the package
 
-AC_INIT(raven, [0.0.0], [raven@pileborg.org], , [http://code.google.com/p/the-raven/])
+AC_INIT(raven, [0.0.0], [raven@pileborg.org], , [https://github.com/pileon/raven])
 AC_CONFIG_AUX_DIR([scripts])
 AC_CONFIG_MACRO_DIR([scripts])
 AM_INIT_AUTOMAKE
@@ -245,8 +245,8 @@ AC_COMPILE_IFELSE(
      [Define to 1 if the compilers supports computed gotos])],
   [AC_MSG_RESULT(no)])
 
-# TODO: Check for: Unicode string/character support (C++0x u8"\u2018", u"\u2018" and U"\u2018")
-# TODO: Check for: Raw strings (C++0x R"delim(string)delim")
+# TODO: Check for: Unicode string/character support (C++11 u8"\u2018", u"\u2018" and U"\u2018")
+# TODO: Check for: Raw strings (C++11 R"delim(string)delim")
 
 dnl ######################################################################
 dnl # Checks for library functions
@@ -300,8 +300,8 @@ AC_ARG_WITH(ssl,
 dnl ######################################################################
 dnl # Check for Boost functionality
 
-BOOST_REQUIRE([1.42.0],
-	[AC_MSG_ERROR([The Raven requires Boost version 1.42.0 or higher.])])
+BOOST_REQUIRE([1.46.0],
+	[AC_MSG_ERROR([The Raven requires Boost version 1.46.0 or higher.])])
 
 BOOST_PROGRAM_OPTIONS
 BOOST_SIGNALS
@@ -344,6 +344,7 @@ AH_BOTTOM([
 #endif /* __HOST_AUTOCONF_H__ */
 ])
 
+dnl For use in makefiles, since automake can't handle it properly
 AC_SUBST([IFEQ], [ifeq])
 AC_SUBST([IFNEQ], [ifneq])
 AC_SUBST([IFDEF], [ifdef])
