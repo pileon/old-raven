@@ -1,5 +1,6 @@
+#!/bin/sh
 ######################################################################
-# File: Makefile                                   Part of The Raven #
+# File: autogen.sh                                 Part of The Raven #
 #                                                                    #
 # Copyright (C) 2011, Joachim Pileborg and individual contributors.  #
 # All rights reserved.                                               #
@@ -34,26 +35,10 @@
 #                                                                    #
 ######################################################################
 
-TOPDIR  = ..
-SUBDIRS =
-
-TARGET  = raven
-SOURCES = raven.cpp
-HEADERS = raven.h
-
-######################################################################
-
-.PHONY: default
-default: all
-
-.PHONY: all
-all: build
-
-######################################################################
-
-######################################################################
-
-include $(TOPDIR)/mk/clean.mk
-include $(TOPDIR)/mk/build.mk
+libtoolize
+aclocal -I scripts
+autoheader
+autoconf
+automake --foreign --add-missing
 
 ######################################################################

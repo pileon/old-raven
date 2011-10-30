@@ -45,13 +45,15 @@ namespace raven {
 
 /* **************************************************************** */
 
-} // namespace raven
-
-/* **************************************************************** */
-
-int main()
+int main(int argc, char *argv[])
 {
-    std::cout << "Hello world again!\n";
+    std::cout << "Hello world!\n";
+}
+
+void exit()
+{
 }
 
 /* **************************************************************** */
+
+} // namespace raven

@@ -1,5 +1,6 @@
+# Process this file with automake to produce a Makefile.in template
 ######################################################################
-# File: mk/clean.mk                                Part of The Raven #
+# File: Makefile.am                                Part of The Raven #
 #                                                                    #
 # Copyright (C) 2011, Joachim Pileborg and individual contributors.  #
 # All rights reserved.                                               #
@@ -33,66 +34,14 @@
 # SUCH DAMAGE.                                                       #
 #                                                                    #
 ######################################################################
-#
-# This file is to be included in all makefiles that want a target
-# to clean up things.
+
+ACLOCAL_AMFLAGS  = -I scripts
+AUTOMAKE_OPTIONS = subdir-objects
 
 ######################################################################
 
-GLOBAL_SOMECLEAN_FILES = *~
-GLOBAL_CLEAN_FILES     =
-GLOBAL_REALCLEAN_FILES =
-
-######################################################################
-
-.PHONY: someclean
-someclean: __someclean
-ifneq ($(SUBDIRS),)
-	for d in $(SUBDIRS); do make -C $$d someclean; done
-endif
-
-.PHONY: clean
-clean: __clean
-ifneq ($(SUBDIRS),)
-	for d in $(SUBDIRS); do make -C $$d clean; done
-endif
-
-.PHONY: realclean
-realclean: __realclean
-ifneq ($(SUBDIRS),)
-	for d in $(SUBDIRS); do make -C $$d realclean; done
-endif
-
-######################################################################
-
-.PHONY: local_someclean local_clean local_realclean
-local_someclean local_clean local_realclean:
-
-.PHONY: __someclean
-__someclean:: local_someclean
-ifneq ($(GLOBAL_SOMECLEAN_FILES),)
-	-rm -f $(GLOBAL_SOMECLEAN_FILES)
-endif
-ifneq ($(local_someclean_files),)
-	-rm -f $(local_someclean_files)
-endif
-
-.PHONY: __clean
-__clean:: __someclean local_clean
-ifneq ($(GLOBAL_CLEAN_FILES),)
-	-rm -f $(GLOBAL_CLEAN_FILES)
-endif
-ifneq ($(local_clean_files),)
-	-rm -f $(local_clean_files)
-endif
-
-.PHONY: __realclean
-__realclean:: __clean local_realclean
-ifneq ($(GLOBAL_REALCLEAN_FILES),)
-	-rm -f $(GLOBAL_REALCLEAN_FILES)
-endif
-ifneq ($(local_realclean_files),)
-	-rm -f $(local_realclean_files)
-endif
+SUBDIRS    = src
+CLEANFILES = *~
+EXTRA_DIST = scripts/16k.py scripts/boost.m4
 
 ######################################################################

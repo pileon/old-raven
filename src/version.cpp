@@ -1,8 +1,6 @@
-/* -*- mode: C++; coding: utf-8 -*- */
-#ifndef __RAVEN_H__
-#define __RAVEN_H__ 1
+/* -*- coding: utf-8 -*- */
 /* *******************************************************************
-* File: raven.h                                    Part of The Raven *
+* File: version.cpp                                Part of The Raven *
 *                                                                    *
 * Copyright (C) 2011, Joachim Pileborg and individual contributors.  *
 * All rights reserved.                                               *
@@ -37,20 +35,22 @@
 *                                                                    *
 ******************************************************************* */
 
-#if HAVE_CONFIG_H
-# include "host/autoconf.h"
-#endif
-#include "host/sysdeps.h"
+#include "raven.h"
 
 namespace raven {
+namespace version {
 
 /* **************************************************************** */
 
-int main(int argc, char *argv[]);
-void exit();
+const char *compile_date = __DATE__;
+const char *compile_time = __TIME__;
+
+const char *driver_name    = PACKAGE_NAME;
+const char *driver_version = PACKAGE_VERSION;
+const char *driver_tag     = PACKAGE_STRING;
+const char *driver_author  = PACKAGE_BUGREPORT;
 
 /* **************************************************************** */
 
+} // namespace version
 } // namespace raven
-
-#endif // __RAVEN_H__

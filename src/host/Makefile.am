@@ -1,5 +1,5 @@
 ######################################################################
-# File: mk/build.mk                                Part of The Raven #
+# File: src/host/Makefile.am                       Part of The Raven #
 #                                                                    #
 # Copyright (C) 2011, Joachim Pileborg and individual contributors.  #
 # All rights reserved.                                               #
@@ -34,15 +34,26 @@
 #                                                                    #
 ######################################################################
 
-CXX_WARNING_FLAGS = -Wall -Wextra -Weffc++
-CXX_DEBUG_FLAGS   = -ggdb3
-CXX_HEADER_FLAGS  =
-CXX_DEFINED       =
-CXX_LOCAL_FLAGS   = -std=c++11
+AUTOMAKE_OPTIONS = subdir-objects foreign
 
-LD_DEBUG_FLAGS    = -ggdb3
-LD_LOCAL_FLAGS    =
+SUBDIRS    =
+CLEANFILES = *~
 
-LD_LOCAL_LIBS     =
+AM_CXXFLAGS = @EXTRA_CXXFLAGS@ -I$(top_srcdir) -I..
+
+######################################################################
+
+# noinst_LIBRARIES   = libhost.a
+
+noinst_HEADERS     = sysdeps.h
+
+# libhost_a_SOURCES  =
+# @IFNEQ@ (,$(findstring linux,$(host_os)))
+# libhost_a_SOURCES += posix/signal.cpp
+# @ENDIF@
+
+######################################################################
+
+# TODO: count and count16k, and maybe other count targets?
 
 ######################################################################
