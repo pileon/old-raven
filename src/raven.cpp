@@ -38,6 +38,13 @@
 #include "raven.h"
 #include <iostream>
 
+#if WITH_MTRACE && HAVE_MCHECK_H
+# include <mcheck.h>
+#endif
+#if HAVE___GNU_CXX____VERBOSE_TERMINATE_HANDLER
+# include <exception>
+#endif
+
 namespace raven {
 
 /* **************************************************************** */
