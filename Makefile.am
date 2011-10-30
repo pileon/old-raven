@@ -42,6 +42,6 @@ AUTOMAKE_OPTIONS = subdir-objects
 
 SUBDIRS    = src
 CLEANFILES = *~
-EXTRA_DIST = scripts/16k.py
+EXTRA_DIST = scripts/16k.py scripts/boost.m4
 
 ######################################################################
