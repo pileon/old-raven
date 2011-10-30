@@ -6,6 +6,9 @@
 *.[oa]
 *.so
 
+# Of course ignore binary files!
+src/raven
+
 # Files for automake/autoconf
 aclocal.m4
 autom4te.cache/
@@ -21,12 +24,13 @@ scripts/ltsugar.m4
 scripts/ltversion.m4
 scripts/lt~obsolete.m4
 scripts/missing
-src/host/autoconf.h.in
+autoconf.h.in
 config.log
 config.status
 Makefile
 Makefile.in
 libtool
 .deps
-src/host/autoconf.h
-src/host/stamp-h1
+autoconf.h
+stamp-h1
+.dirstamp
