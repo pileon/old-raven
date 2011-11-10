@@ -34,3 +34,7 @@ libtool
 autoconf.h
 stamp-h1
 .dirstamp
+
+# Auto-generated documentation
+doc/server/html
+doc/server/latex
