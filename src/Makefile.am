@@ -47,16 +47,14 @@ LDFLAGS_BOOST = \
 	$(BOOST_PROGRAM_OPTIONS_LDFLAGS) \
 	$(BOOST_SIGNALS_LDFLAGS) \
 	$(BOOST_DATE_TIME_LDFLAGS) \
-	$(BOOST_ASIO_LDFLAGS) \
-	$(BOOST_LOG_LDFLAGS)
+	$(BOOST_ASIO_LDFLAGS)
 
 LIBS_BOOST = \
 	$(BOOST_SYSTEM_LIBS) \
 	$(BOOST_PROGRAM_OPTIONS_LIBS) \
 	$(BOOST_SIGNALS_LIBS) \
 	$(BOOST_DATE_TIME_LIBS) \
-	$(BOOST_ASIO_LIBS) \
-	$(BOOST_LOG_LIBS)
+	$(BOOST_ASIO_LIBS)
 
 AM_CPPFLAGS = $(BOOST_CPPFLAGS)
 AM_LDFLAGS  = $(LDFLAGS_BOOST)
@@ -67,9 +65,9 @@ LIBS       +=  $(LIBS_BOOST)
 
 noinst_PROGRAMS = raven
 
-noinst_HEADERS  = raven.h version.h
+noinst_HEADERS  = raven.h version.h log.h
 
-raven_SOURCES   = host/posix/main.cpp raven.cpp version.cpp
+raven_SOURCES   = host/posix/main.cpp raven.cpp version.cpp log.cpp
 
 raven_LDADD     = $(LIBOBJS)
 
