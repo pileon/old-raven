@@ -67,7 +67,7 @@ noinst_PROGRAMS = raven
 
 noinst_HEADERS  = raven.h version.h log.h
 
-raven_SOURCES   = host/posix/main.cpp raven.cpp version.cpp log.cpp
+raven_SOURCES   = host/posix/main.cpp raven.cpp log.cpp
 
 raven_LDADD     = $(LIBOBJS)
 
