@@ -84,6 +84,9 @@ int main(int argc, char *argv[])
 
     // std::cout << "Logging done\n";
 
+    log::init();
+    log::clean();
+
     return 0;
 }
 
