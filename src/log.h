@@ -60,6 +60,12 @@ bool init(const std::string &filename = "");
 //! Clean up resources on shutdown.
 void clean();
 
+//! Get the output stream used for the logging.
+std::ostream &get_stream();
+
+//! Get a string for the date and time.
+const std::string get_datetime();
+
 /* **************************************************************** */
 
 namespace types
@@ -71,8 +77,8 @@ namespace types
             : m_name(name)
             { }
 
-        std::ostream &operator<<(std::ostream &os) const throw()
-            { os << m_name; return os; }
+        const std::string &name() const throw()
+            { return m_name; }
 
     private:
         std::string m_name;
@@ -83,7 +89,20 @@ namespace types
 
     const type debug { "DEBUG" };
     const type info  { "INFO"  };
+
+    inline std::ostream &operator<<(std::ostream &os, const type &type)
+    {
+        os << "[" << type.name() << "]";
+        return os;
+    }
+
 }
+
+/* **************************************************************** */
+
+#define LOG(type, stream)                                               \
+    log::get_stream() << log::get_datetime() << " :: "                  \
+    << log::types::type << " " << stream << "\n"
 
 /* **************************************************************** */
 

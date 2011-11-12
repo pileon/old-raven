@@ -38,12 +38,49 @@
 #include "raven.h"
 #include "log.h"
 
+#include <chrono>
+#include <iomanip>
+#include <ctime>
+
 namespace raven {
 namespace log {
 
 /* **************************************************************** */
 
+namespace
+{
+    std::ostream &output = std::cout;
+}
+
 /* **************************************************************** */
+
+bool init(const std::string &filename /* = "" */)
+{
+    LOG(debug, "hello world!");
+    return true;
+}
+
+void clean()
+{
+}
+
+std::ostream &get_stream()
+{
+    return output;
+}
+
+const std::string get_datetime()
+{
+    time_t now = std::chrono::system_clock::to_time_t(
+        std::chrono::system_clock::now());
+    // XXX: libstdc++ doesn't implement `put_time` as of yet
+    // return std::put_time(std::localtime(&now_t), "%F %T");
+
+    char buf[32];
+    std::string s = ctime_r(&now, buf);
+
+    return s.substr(0, s.length() - 1);
+}
 
 /* **************************************************************** */
 
