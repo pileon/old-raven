@@ -73,6 +73,12 @@ raven_LDADD     = $(LIBOBJS)
 
 ######################################################################
 
+.PHONY: doxygen
+doxygen:
+	doxygen raven.doxygen
+
+######################################################################
+
 # TODO: count and count16k, and maybe other count targets (like sloccount)?
 
 ######################################################################
