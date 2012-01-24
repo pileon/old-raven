@@ -54,6 +54,20 @@ libhost_a_SOURCES += posix/signal.cpp
 
 ######################################################################
 
-# TODO: count and count16k, and maybe other count targets?
+.PHONY: get-files
+get-files:
+	@echo $(SOURCES:%=host/%) $(HEADERS:%=host/%)
+
+.PHONY: count
+count:
+	wc $(HEADERS) $(SOURCES) | sort -g
+
+.PHONY: count16k
+count16k:
+	$(top_builddir)/scripts/16k.py -c -b -l -s $(HEADERS) $(SOURCES) | wc
+
+.PHONY: sloccount
+sloccount:
+	sloccount -- .
 
 ######################################################################
