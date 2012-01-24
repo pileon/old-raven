@@ -15,7 +15,7 @@
 		{
 			"path": "/home/arrow/Develop/MUD/raven/src",
 			"file_exclude_patterns": [
-				"raven",
+				"raven", "*~",
 				"Makefile.in", "Makefile", ".dirstamp", "placeholder",
 				"host/autoconf.h.in", "host/autoconf.h", "host/stamp-h1"
 			],
