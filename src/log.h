@@ -68,6 +68,10 @@ const std::string get_datetime();
 
 /* **************************************************************** */
 
+//! Logging types.
+//!
+//! \todo Try to make something more general? With backends and formaters
+//!       and all that stuff.
 namespace types
 {
     class type
@@ -88,7 +92,7 @@ namespace types
     };
 
     const type debug { "DEBUG" };
-    const type info  { "INFO"  };
+    const type info  { "INFO " };
 
     inline std::ostream &operator<<(std::ostream &os, const type &type)
     {

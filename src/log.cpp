@@ -76,10 +76,12 @@ const std::string get_datetime()
     // XXX: libstdc++ doesn't implement `put_time` as of yet
     // return std::put_time(std::localtime(&now_t), "%F %T");
 
-    char buf[32];
+    char buf[32];  // Buffer must be at least 26 characters (ctime_r(3))
     std::string s = ctime_r(&now, buf);
 
-    return s.substr(0, s.length() - 1);
+    return s.substr(0, s.length() - 1);  // -1 to remove newline
+    //! \todo -2 om Windows?
+    //! \todo This might need to be put in host
 }
 
 /* **************************************************************** */
