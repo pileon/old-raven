@@ -1,0 +1,16 @@
+{
+	"folders":
+	[
+		{
+			"path": "/home/arrow/Develop/MUD/raven",
+			"file_exclude_patterns": [
+				"*~", "*.in",
+				"Makefile", "aclocal.m4", "config.log", "config.status",
+				"configure"
+			],
+			"folder_exclude_patterns": [
+				".deps", ".libs", "autom4te.cache"
+			]
+		}
+	]
+}
