@@ -1,6 +1,8 @@
-/* -*- coding: utf-8 -*- */
+// -*- mode: C++; coding: utf-8 -*-
+#ifndef __LOG_H__
+#define __LOG_H__ 1
 /* *******************************************************************
-* File: raven.cpp                                  Part of The Raven *
+* File: log.h                                      Part of The Raven *
 *                                                                    *
 * Copyright (C) 2011, Joachim Pileborg and individual contributors.  *
 * All rights reserved.                                               *
@@ -35,65 +37,80 @@
 *                                                                    *
 ******************************************************************* */
 
-#include "raven.h"
-#include <iostream>
-
-#include "version.h"
-
-// #include <boost/shared_ptr.hpp>
-// #include <boost/make_shared.hpp>
-// #include <boost/log/core.hpp>
-// #include <boost/log/trivial.hpp>
-// #include <boost/log/filters.hpp>
-// #include <boost/log/sinks/text_ostream_backend.hpp>
-// #include <boost/log/sinks/sync_frontend.hpp>
-// #include <boost/log/utility/empty_deleter.hpp>
+// The name "log" is also used by std::log from <cmath>
+#ifdef log
+# undef log
+#endif
 
 namespace raven {
+namespace log {
 
 /* **************************************************************** */
 
+//! Initialize the logging sub-system.
+//!
+//! \param filename Optional filename of a file where to put the output.
+//!                 If not given, will use standard output.
+//!
+//! \return If initialization went ok or not.
+//! \retval true  Initialization was ok.
+//! \retval false Initilization failed.
+bool init(const std::string &filename = "");
+
+//! Clean up resources on shutdown.
+void clean();
+
+//! Get the output stream used for the logging.
+std::ostream &get_stream();
+
+//! Get a string for the date and time.
+const std::string get_datetime();
 
 /* **************************************************************** */
 
-int main(int argc, char *argv[])
+//! Logging types.
+//!
+//! \todo Try to make something more general? With backends and formaters
+//!       and all that stuff.
+namespace types
 {
-    std::cout << "Hello world!\n";
+    class type
+    {
+    public:
+        explicit type(const char *name) throw()
+            : m_name(name)
+            { }
 
-    // {
-    //     boost::shared_ptr<boost::log::core > core = boost::log::core::get();
+        const std::string &name() const throw()
+            { return m_name; }
 
-    //     // Create a backend and attach a couple of streams to it
-    //     boost::shared_ptr<boost::log::sinks::text_ostream_backend> backend =
-    //         boost::make_shared<boost::log::sinks::text_ostream_backend>();
+    private:
+        std::string m_name;
 
-    //     backend->add_stream(
-    //         boost::shared_ptr<std::ostream >(&std::clog, boost::log::empty_deleter()));
+        type() = delete;
+        type(const type &) = delete;
+    };
 
-    //     // Enable auto-flushing after each log record written
-    //     backend->auto_flush(true);
+    const type debug { "DEBUG" };
+    const type info  { "INFO " };
 
-    //     // Wrap it into the frontend and register in the core.
-    //     // The backend requires synchronization in the frontend.
-    //     typedef boost::log::sinks::synchronous_sink<boost::log::sinks::text_ostream_backend > sink_t;
-    //     boost::shared_ptr<sink_t> sink(new sink_t(backend));
-    //     core->add_sink(sink);
-    // }
+    inline std::ostream &operator<<(std::ostream &os, const type &type)
+    {
+        os << "[" << type.name() << "]";
+        return os;
+    }
 
-    // BOOST_LOG_TRIVIAL(info) << "An informational severity message";
-
-    // std::cout << "Logging done\n";
-
-    log::init();
-    log::clean();
-
-    return 0;
 }
 
-void exit()
-{
-}
+/* **************************************************************** */
+
+#define LOG(type, stream)                                               \
+    log::get_stream() << log::get_datetime() << " :: "                  \
+    << log::types::type << " " << stream << "\n"
 
 /* **************************************************************** */
 
+} // namespace log
 } // namespace raven
+
+#endif // __LOG_H__

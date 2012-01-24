@@ -310,6 +310,8 @@ BOOST_PROGRAM_OPTIONS
 BOOST_SIGNALS
 BOOST_DATE_TIME
 BOOST_ASIO
+BOOST_LOG
+BOOST_LOG_SETUP
 
 dnl ######################################################################
 

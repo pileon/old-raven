@@ -44,13 +44,13 @@ namespace version {
 
 /* **************************************************************** */
 
-extern const char *compile_date;    //!< The compilation date
-extern const char *compile_time;    //!< The compilation time
+const char *compile_date = __DATE__;    //!< The compilation date
+const char *compile_time = __TIME__;    //!< The compilation time
 
-extern const char *driver_name;     //!< Package name
-extern const char *driver_version;  //!< Package version
-extern const char *driver_tag;      //!< Package string
-extern const char *driver_author;   //!< Package bugreport email address
+const char *driver_name    = PACKAGE_NAME;       //!< Package name
+const char *driver_version = PACKAGE_VERSION;    //!< Package version
+const char *driver_tag     = PACKAGE_STRING;     //!< Package string
+const char *driver_author  = PACKAGE_BUGREPORT;  //!< Package bugreport email address
 
 /* **************************************************************** */
 

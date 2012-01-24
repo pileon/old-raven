@@ -1,6 +1,6 @@
-/* -*- coding: utf-8 -*- */
+// -*- coding: utf-8 -*-
 /* *******************************************************************
-* File: version.cpp                                Part of The Raven *
+* File: log.cpp                                    Part of The Raven *
 *                                                                    *
 * Copyright (C) 2011, Joachim Pileborg and individual contributors.  *
 * All rights reserved.                                               *
@@ -36,21 +36,55 @@
 ******************************************************************* */
 
 #include "raven.h"
+#include "log.h"
+
+#include <chrono>
+#include <iomanip>
+#include <ctime>
 
 namespace raven {
-namespace version {
+namespace log {
 
 /* **************************************************************** */
 
-const char *compile_date = __DATE__;
-const char *compile_time = __TIME__;
-
-const char *driver_name    = PACKAGE_NAME;
-const char *driver_version = PACKAGE_VERSION;
-const char *driver_tag     = PACKAGE_STRING;
-const char *driver_author  = PACKAGE_BUGREPORT;
+namespace
+{
+    std::ostream &output = std::cout;
+}
 
 /* **************************************************************** */
 
-} // namespace version
+bool init(const std::string &filename /* = "" */)
+{
+    LOG(debug, "hello world!");
+    return true;
+}
+
+void clean()
+{
+}
+
+std::ostream &get_stream()
+{
+    return output;
+}
+
+const std::string get_datetime()
+{
+    time_t now = std::chrono::system_clock::to_time_t(
+        std::chrono::system_clock::now());
+    // XXX: libstdc++ doesn't implement `put_time` as of yet
+    // return std::put_time(std::localtime(&now_t), "%F %T");
+
+    char buf[32];  // Buffer must be at least 26 characters (ctime_r(3))
+    std::string s = ctime_r(&now, buf);
+
+    return s.substr(0, s.length() - 1);  // -1 to remove newline
+    //! \todo -2 om Windows?
+    //! \todo This might need to be put in host
+}
+
+/* **************************************************************** */
+
+} // namespace log
 } // namespace raven
