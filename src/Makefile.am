@@ -58,8 +58,8 @@ LIBS_BOOST = \
 
 AM_CPPFLAGS = $(BOOST_CPPFLAGS)
 AM_LDFLAGS  = $(LDFLAGS_BOOST)
-LIBS       +=  $(LIBS_BOOST)
-LIBS       +=  host/libhost.a
+LIBS       += $(LIBS_BOOST)
+LIBS       += host/libhost.a
 
 ######################################################################
 
@@ -70,6 +70,8 @@ noinst_HEADERS  = raven.h version.h log.h
 raven_SOURCES   = host/posix/main.cpp raven.cpp log.cpp
 
 raven_LDADD     = $(LIBOBJS)
+
+raven_DEPENDENCIES = host/libhost.a
 
 ######################################################################
 
