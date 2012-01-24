@@ -36,9 +36,52 @@
 ******************************************************************* */
 
 #include "raven.h"
+#if HAVE_SIGNAL_H
+# include <signal.h>
+#endif
 
 namespace raven {
 namespace host {
+
+/* **************************************************************** */
+
+namespace
+{
+	typedef RETSIGTYPE sigfunc(int);
+
+	/* ************************************************************ */
+
+#if HAVE_SIGACTION
+	# define signal my_signal
+
+	/*
+	 * New implementation of signal(2), using sigaction(2).
+	 * Taken from the book ``Advanced Programmin in the UNIX Environment''
+	 * by W. Richard Stevens.
+	 */
+	sigfunc *signal(int signo, sigfunc *func)
+	{
+		struct sigaction nact, oact;
+
+		nact.sa_handler = func;
+		nact.sa_flags   = 0;
+# ifdef SA_INTERRUPT
+		nact.sa_flags  |= SA_INTERRUPT;
+# endif
+		sigemptyset(&nact.sa_mask);
+
+		if (sigaction(signo, &nact, &oact) < 0)
+			return SIG_ERR;
+
+		return oact.sa_handler;
+	}
+#endif  // HAVE_SIGACTION
+
+	/* ************************************************************ */
+
+	// Signal handlers
+
+}
 
 /* **************************************************************** */
 
