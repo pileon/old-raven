@@ -37,36 +37,37 @@
 
 AUTOMAKE_OPTIONS = subdir-objects
 
-# SUBDIRS    = host
+SUBDIRS    = host
 CLEANFILES = *~
 
 AM_CXXFLAGS = @EXTRA_CXXFLAGS@
 
-# LDFLAGS_BOOST = \
-# 	$(BOOST_SYSTEM_LDFLAGS) \
-# 	$(BOOST_PROGRAM_OPTIONS_LDFLAGS) \
-# 	$(BOOST_SIGNALS_LDFLAGS) \
-# 	$(BOOST_DATE_TIME_LDFLAGS) \
-# 	$(BOOST_ASIO_LDFLAGS)
+LDFLAGS_BOOST = \
+	$(BOOST_SYSTEM_LDFLAGS) \
+	$(BOOST_PROGRAM_OPTIONS_LDFLAGS) \
+	$(BOOST_SIGNALS_LDFLAGS) \
+	$(BOOST_DATE_TIME_LDFLAGS) \
+	$(BOOST_ASIO_LDFLAGS)
 
-# LIBS_BOOST = \
-# 	$(BOOST_SYSTEM_LIBS) \
-# 	$(BOOST_PROGRAM_OPTIONS_LIBS) \
-# 	$(BOOST_SIGNALS_LIBS) \
-# 	$(BOOST_DATE_TIME_LIBS) \
-# 	$(BOOST_ASIO_LIBS)
+LIBS_BOOST = \
+	$(BOOST_SYSTEM_LIBS) \
+	$(BOOST_PROGRAM_OPTIONS_LIBS) \
+	$(BOOST_SIGNALS_LIBS) \
+	$(BOOST_DATE_TIME_LIBS) \
+	$(BOOST_ASIO_LIBS)
 
 AM_CPPFLAGS = $(BOOST_CPPFLAGS)
 AM_LDFLAGS  = $(LDFLAGS_BOOST)
-# LIBS       +=  host/libhost.a $(LIBS_BOOST)
+LIBS       +=  $(LIBS_BOOST)
+LIBS       +=  host/libhost.a
 
 ######################################################################
 
 noinst_PROGRAMS = raven
 
-noinst_HEADERS  = raven.h version.h
+noinst_HEADERS  = raven.h version.h log.h
 
-raven_SOURCES   = host/posix/main.cpp raven.cpp version.cpp
+raven_SOURCES   = host/posix/main.cpp raven.cpp log.cpp
 
 raven_LDADD     = $(LIBOBJS)
 
