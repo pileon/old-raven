@@ -37,7 +37,7 @@
 
 AUTOMAKE_OPTIONS = subdir-objects
 
-# SUBDIRS    = host
+SUBDIRS    = host
 CLEANFILES = *~
 
 AM_CXXFLAGS = @EXTRA_CXXFLAGS@
@@ -58,8 +58,8 @@ LIBS_BOOST = \
 
 AM_CPPFLAGS = $(BOOST_CPPFLAGS)
 AM_LDFLAGS  = $(LDFLAGS_BOOST)
-LIBS       +=  $(LIBS_BOOST)
-# LIBS       +=  host/libhost.a $(LIBS_BOOST)
+LIBS       += $(LIBS_BOOST)
+LIBS       += host/libhost.a
 
 ######################################################################
 
@@ -71,6 +71,8 @@ raven_SOURCES   = host/posix/main.cpp raven.cpp log.cpp
 
 raven_LDADD     = $(LIBOBJS)
 
+raven_DEPENDENCIES = host/libhost.a
+
 ######################################################################
 
 .PHONY: doxygen
@@ -79,6 +81,34 @@ doxygen:
 
 ######################################################################
 
-# TODO: count and count16k, and maybe other count targets (like sloccount)?
+.PHONY: count
+count:
+	wc $(HEADERS) $(SOURCES) | sort -g
+
+.PHONY: count16k
+count16k:
+	$(top_builddir)/scripts/16k.py -c -b -l -s -q $(HEADERS) $(SOURCES) | wc
+
+.PHONY: sloccount
+sloccount:
+	sloccount -- .
+
+.PHONY: sloccount-all
+sloccount-all:
+	sloccount --multiproject -- . $(SUBDIRS)
+
+.PHONY: count-all
+count-all:
+	(files=""; for d in $(SUBDIRS); do \
+		files="$$files `$(MAKE) -s -C $$d get-files`"; \
+	 done; \
+	 wc $(HEADERS) $(SOURCES) $$files | sort -g)
+
+.PHONY: count16k-all
+count16k-all:
+	(files=""; for d in $(SUBDIRS); do \
+		files="$$files `$(MAKE) -s -C $$d get-files`"; \
+	 done; \
+	 $(top_builddir)/scripts/16k.py -c -b -l -s -q $(HEADERS) $(SOURCES) $$files | wc)
 
 ######################################################################
