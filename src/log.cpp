@@ -40,6 +40,8 @@
 
 #include <chrono>
 #include <iomanip>
+#include <fstream>
+#include <memory>
 #include <ctime>
 
 namespace raven {
@@ -49,14 +51,49 @@ namespace log {
 
 namespace
 {
-    std::ostream &output = std::cout;
+    class file_proxy
+    {
+    public:
+        file_proxy(std::ostream &os)
+            : m_output(os)
+            { }
+
+        std::ostream &get() const
+            { return m_output; }
+
+        operator std::ostream &() const
+            { return m_output; }
+
+    private:
+        std::ostream &m_output;
+    };
+
+    std::ofstream logfile;
+
+    std::shared_ptr<file_proxy> output;
 }
 
 /* **************************************************************** */
 
 bool init(const std::string &filename /* = "" */)
 {
-    LOG(debug, "hello world!");
+    if (filename.empty())
+        return init(std::clog);
+    else
+    {
+        logfile.open(filename, std::ios::out | std::ios::trunc);
+        return (logfile && init(logfile));
+    }
+
+    // throw std::system_error{
+    //     std::make_error_code(static_cast<std::errc>(errno))};
+
+    return false;
+}
+
+bool init(std::ostream &file)
+{
+    output = std::make_shared<file_proxy>(file_proxy{file});
     return true;
 }
 
@@ -66,21 +103,22 @@ void clean()
 
 std::ostream &get_stream()
 {
-    return output;
+    return *output;
 }
 
 const std::string get_datetime()
 {
-    time_t now = std::chrono::system_clock::to_time_t(
+    std::time_t now = std::chrono::system_clock::to_time_t(
         std::chrono::system_clock::now());
     // XXX: libstdc++ doesn't implement `put_time` as of yet
     // return std::put_time(std::localtime(&now_t), "%F %T");
 
-    char buf[32];  // Buffer must be at least 26 characters (ctime_r(3))
-    std::string s = ctime_r(&now, buf);
+    char buf[32];
+    if (std::strftime(buf, sizeof(buf), "%c", std::localtime(&now)))
+        return buf;
+    else
+        return std::string("<unknown date/time>");
 
-    return s.substr(0, s.length() - 1);  // -1 to remove newline
-    //! \todo -2 om Windows?
     //! \todo This might need to be put in host
 }
 

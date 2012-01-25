@@ -37,7 +37,7 @@
 
 #include "raven.h"
 #include <iostream>
-
+#include <fstream>
 #include "version.h"
 
 // #include <boost/shared_ptr.hpp>
@@ -58,24 +58,22 @@ namespace raven {
 
 int main(int argc, char *argv[])
 {
-    std::cout << "Hello world!\n";
-
     // {
-    //     boost::shared_ptr<boost::log::core > core = boost::log::core::get();
+    //     boost::shared_ptr<boost::log::core> core = boost::log::core::get();
 
     //     // Create a backend and attach a couple of streams to it
     //     boost::shared_ptr<boost::log::sinks::text_ostream_backend> backend =
     //         boost::make_shared<boost::log::sinks::text_ostream_backend>();
 
     //     backend->add_stream(
-    //         boost::shared_ptr<std::ostream >(&std::clog, boost::log::empty_deleter()));
+    //         boost::shared_ptr<std::ostream>(&std::clog, boost::log::empty_deleter()));
 
     //     // Enable auto-flushing after each log record written
     //     backend->auto_flush(true);
 
     //     // Wrap it into the frontend and register in the core.
     //     // The backend requires synchronization in the frontend.
-    //     typedef boost::log::sinks::synchronous_sink<boost::log::sinks::text_ostream_backend > sink_t;
+    //     typedef boost::log::sinks::synchronous_sink<boost::log::sinks::text_ostream_backend> sink_t;
     //     boost::shared_ptr<sink_t> sink(new sink_t(backend));
     //     core->add_sink(sink);
     // }
@@ -85,6 +83,9 @@ int main(int argc, char *argv[])
     // std::cout << "Logging done\n";
 
     log::init();
+
+    LOG(debug, "hello world!");
+
     log::clean();
 
     return 0;

@@ -57,6 +57,15 @@ namespace log {
 //! \retval false Initilization failed.
 bool init(const std::string &filename = "");
 
+//! Initialize the logging sub-system.
+//!
+//! \param file     The file to use for output.
+//!
+//! \return If initialization went ok or not.
+//! \retval true  Initialization was ok.
+//! \retval false Initilization failed.
+bool init(std::ostream &file);
+
 //! Clean up resources on shutdown.
 void clean();
 
@@ -106,7 +115,7 @@ namespace types
 
 #define LOG(type, stream)                                               \
     log::get_stream() << log::get_datetime() << " :: "                  \
-    << log::types::type << " " << stream << "\n"
+    << log::types::type << " " << stream << '\n'
 
 /* **************************************************************** */
 
