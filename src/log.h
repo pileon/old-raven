@@ -1,6 +1,8 @@
-/* -*- coding: utf-8 -*- */
+// -*- mode: C++; coding: utf-8 -*-
+#ifndef __LOG_H__
+#define __LOG_H__ 1
 /* *******************************************************************
-* File: version.cpp                                Part of The Raven *
+* File: log.h                                      Part of The Raven *
 *                                                                    *
 * Copyright (C) 2011, Joachim Pileborg and individual contributors.  *
 * All rights reserved.                                               *
@@ -35,22 +37,92 @@
 *                                                                    *
 ******************************************************************* */
 
-#include "raven.h"
+// The name "log" is also used by std::log from <cmath>
+#ifdef log
+# undef log
+#endif
 
 namespace raven {
-namespace version {
+
+//! \todo Use the future boost::log framework instead, wrapped in our
+//!       own simplified framework.
+namespace log {
 
 /* **************************************************************** */
 
-const char *compile_date = __DATE__;
-const char *compile_time = __TIME__;
+//! Initialize the logging sub-system.
+//!
+//! \param filename Optional filename of a file where to put the output.
+//!                 If not given, will use standard output.
+//!
+//! \return If initialization went ok or not.
+//! \retval true  Initialization was ok.
+//! \retval false Initilization failed.
+bool init(const std::string &filename = "");
 
-const char *driver_name    = PACKAGE_NAME;
-const char *driver_version = PACKAGE_VERSION;
-const char *driver_tag     = PACKAGE_STRING;
-const char *driver_author  = PACKAGE_BUGREPORT;
+//! Initialize the logging sub-system.
+//!
+//! \param file     The file to use for output.
+//!
+//! \return If initialization went ok or not.
+//! \retval true  Initialization was ok.
+//! \retval false Initilization failed.
+bool init(std::ostream &file);
+
+//! Clean up resources on shutdown.
+void clean();
+
+//! Get the output stream used for the logging.
+std::ostream &get_stream();
+
+//! Get a string for the date and time.
+const std::string get_datetime();
 
 /* **************************************************************** */
 
-} // namespace version
+//! Logging types.
+//!
+//! \todo Try to make something more general? With backends and formaters
+//!       and all that stuff.
+namespace types
+{
+    class type
+    {
+    public:
+        explicit type(const char *name) throw()
+            : m_name(name)
+            { }
+
+        const std::string &name() const throw()
+            { return m_name; }
+
+    private:
+        std::string m_name;
+
+        type() = delete;
+        type(const type &) = delete;
+    };
+
+    const type debug { "DEBUG" };
+    const type info  { "INFO " };
+
+    inline std::ostream &operator<<(std::ostream &os, const type &type)
+    {
+        os << "[" << type.name() << "]";
+        return os;
+    }
+
+}
+
+/* **************************************************************** */
+
+#define LOG(type, stream)                                               \
+    log::get_stream() << log::get_datetime() << " :: "                  \
+    << log::types::type << " " << stream << '\n'
+
+/* **************************************************************** */
+
+} // namespace log
 } // namespace raven
+
+#endif // __LOG_H__

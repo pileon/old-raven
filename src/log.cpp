@@ -1,8 +1,6 @@
-/* -*- mode: c++; coding: utf-8 -*- */
-#ifndef __VERSION_H__
-#define __VERSION_H__ 1
+// -*- coding: utf-8 -*-
 /* *******************************************************************
-* File: version.h                                  Part of The Raven *
+* File: log.cpp                                    Part of The Raven *
 *                                                                    *
 * Copyright (C) 2011, Joachim Pileborg and individual contributors.  *
 * All rights reserved.                                               *
@@ -37,24 +35,94 @@
 *                                                                    *
 ******************************************************************* */
 
+#include "raven.h"
+#include "log.h"
+
+#include <chrono>
+#include <iomanip>
+#include <fstream>
+#include <memory>
+#include <ctime>
+
 namespace raven {
-
-//! MUD version information
-namespace version {
+namespace log {
 
 /* **************************************************************** */
 
-const char *compile_date = __DATE__;    //!< The compilation date
-const char *compile_time = __TIME__;    //!< The compilation time
+namespace
+{
+    class file_proxy
+    {
+    public:
+        file_proxy(std::ostream &os)
+            : m_output(os)
+            { }
 
-const char *driver_name    = PACKAGE_NAME;       //!< Package name
-const char *driver_version = PACKAGE_VERSION;    //!< Package version
-const char *driver_tag     = PACKAGE_STRING;     //!< Package string
-const char *driver_author  = PACKAGE_BUGREPORT;  //!< Package bugreport email address
+        std::ostream &get() const
+            { return m_output; }
+
+        operator std::ostream &() const
+            { return m_output; }
+
+    private:
+        std::ostream &m_output;
+    };
+
+    std::ofstream logfile;
+
+    std::shared_ptr<file_proxy> output;
+}
 
 /* **************************************************************** */
 
-} // namespace version
+bool init(const std::string &filename /* = "" */)
+{
+    if (filename.empty())
+        return init(std::clog);
+    else
+    {
+        logfile.open(filename, std::ios::out | std::ios::trunc);
+        return (logfile && init(logfile));
+    }
+
+    // throw std::system_error{
+    //     std::make_error_code(static_cast<std::errc>(errno))};
+
+    return false;
+}
+
+bool init(std::ostream &file)
+{
+    output = std::make_shared<file_proxy>(file_proxy{file});
+    return true;
+}
+
+void clean()
+{
+}
+
+std::ostream &get_stream()
+{
+    return *output;
+}
+
+const std::string get_datetime()
+{
+    std::time_t now = std::chrono::system_clock::to_time_t(
+        std::chrono::system_clock::now());
+    // XXX: libstdc++ doesn't implement `put_time` as of yet
+    // return std::put_time(std::localtime(&now_t), "%F %T");
+
+    char buf[32];
+    if (std::strftime(buf, sizeof(buf), "%c", std::localtime(&now)))
+        return buf;
+    else
+        return std::string("<unknown date/time>");
+
+    //! \todo This might need to be put in host
+}
+
+/* **************************************************************** */
+
+} // namespace log
 } // namespace raven
-
-#endif // __VERSION_H__
