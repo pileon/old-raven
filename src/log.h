@@ -43,6 +43,9 @@
 #endif
 
 namespace raven {
+
+//! \todo Use the future boost::log framework instead, wrapped in our
+//!       own simplified framework.
 namespace log {
 
 /* **************************************************************** */
