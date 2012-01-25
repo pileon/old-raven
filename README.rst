@@ -1,10 +1,9 @@
-######################################################################
-# File: README                                     Part of The Raven #
-#                                                                    #
-# Copyright (C) 2011, Joachim Pileborg and individual contributors.  #
-# All rights reserved.                                               #
-#                                                                    #
-######################################################################
+======================================================================
+File: README                                         Part of The Raven
+
+Copyright (C) 2011, Joachim Pileborg and individual contributors.
+All rights reserved.
+======================================================================
 
 =========
 The Raven
