@@ -1,6 +1,6 @@
-/* -*- coding: utf-8 -*- */
+// -*- coding: utf-8 -*-
 /* *******************************************************************
-* File: version.cpp                                Part of The Raven *
+* File: hosts/posix/signal.cpp                     Part of The Raven *
 *                                                                    *
 * Copyright (C) 2011, Joachim Pileborg and individual contributors.  *
 * All rights reserved.                                               *
@@ -36,21 +36,61 @@
 ******************************************************************* */
 
 #include "raven.h"
+#if HAVE_SIGNAL_H
+# include <signal.h>
+#endif
 
 namespace raven {
-namespace version {
+namespace host {
 
 /* **************************************************************** */
 
-const char *compile_date = __DATE__;
-const char *compile_time = __TIME__;
+namespace
+{
+	typedef RETSIGTYPE sigfunc(int);
 
-const char *driver_name    = PACKAGE_NAME;
-const char *driver_version = PACKAGE_VERSION;
-const char *driver_tag     = PACKAGE_STRING;
-const char *driver_author  = PACKAGE_BUGREPORT;
+	/* ************************************************************ */
+
+#if HAVE_SIGACTION
+	# define signal my_signal
+
+	/*
+	 * New implementation of signal(2), using sigaction(2).
+	 * Taken from the book ``Advanced Programmin in the UNIX Environment''
+	 * by W. Richard Stevens.
+	 */
+	sigfunc *signal(int signo, sigfunc *func)
+	{
+		struct sigaction nact, oact;
+
+		nact.sa_handler = func;
+		nact.sa_flags   = 0;
+# ifdef SA_INTERRUPT
+		nact.sa_flags  |= SA_INTERRUPT;
+# endif
+		sigemptyset(&nact.sa_mask);
+
+		if (sigaction(signo, &nact, &oact) < 0)
+			return SIG_ERR;
+
+		return oact.sa_handler;
+	}
+#endif  // HAVE_SIGACTION
+
+	/* ************************************************************ */
+
+	// Signal handlers
+
+}
 
 /* **************************************************************** */
 
-} // namespace version
+bool signal_setup()
+{
+	return true;
+}
+
+/* **************************************************************** */
+
+} // namespace host
 } // namespace raven

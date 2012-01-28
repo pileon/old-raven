@@ -37,6 +37,17 @@
 
 #include "raven.h"
 #include <iostream>
+#include <fstream>
+#include "version.h"
+
+// #include <boost/shared_ptr.hpp>
+// #include <boost/make_shared.hpp>
+// #include <boost/log/core.hpp>
+// #include <boost/log/trivial.hpp>
+// #include <boost/log/filters.hpp>
+// #include <boost/log/sinks/text_ostream_backend.hpp>
+// #include <boost/log/sinks/sync_frontend.hpp>
+// #include <boost/log/utility/empty_deleter.hpp>
 
 #if WITH_MTRACE && HAVE_MCHECK_H
 # include <mcheck.h>
@@ -53,10 +64,13 @@ namespace
 {
     bool init(int argc, char *argv[])
     {
+        log::init();
+        return true;
     }
 
     void clean()
     {
+        log::clean();
     }
 
     /* ************************************************************ */
@@ -109,6 +123,7 @@ int main(int argc, char *argv[])
         return 1;
     }
 
+    LOG(debug, "hello world!");
     // run();
 
     std::cout << std::flush;

@@ -1,8 +1,8 @@
-/* -*- mode: c++; coding: utf-8 -*- */
-#ifndef __VERSION_H__
-#define __VERSION_H__ 1
+// -*- mode: C++; coding: utf-8 -*-
+#ifndef __HOST_HOST_H__
+#define __HOST_HOST_H__ 1
 /* *******************************************************************
-* File: version.h                                  Part of The Raven *
+* File: host/host.h                                Part of The Raven *
 *                                                                    *
 * Copyright (C) 2011, Joachim Pileborg and individual contributors.  *
 * All rights reserved.                                               *
@@ -38,23 +38,15 @@
 ******************************************************************* */
 
 namespace raven {
-
-//! MUD version information
-namespace version {
+namespace host {
 
 /* **************************************************************** */
 
-const char *compile_date = __DATE__;    //!< The compilation date
-const char *compile_time = __TIME__;    //!< The compilation time
-
-const char *driver_name    = PACKAGE_NAME;       //!< Package name
-const char *driver_version = PACKAGE_VERSION;    //!< Package version
-const char *driver_tag     = PACKAGE_STRING;     //!< Package string
-const char *driver_author  = PACKAGE_BUGREPORT;  //!< Package bugreport email address
+bool signal_setup();
 
 /* **************************************************************** */
 
-} // namespace version
+} // namespace host
 } // namespace raven
 
-#endif // __VERSION_H__
+#endif // __HOST_HOST_H__

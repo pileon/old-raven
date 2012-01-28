@@ -42,7 +42,11 @@
 #endif
 #include "host/sysdeps.h"
 
+#include <iostream>
+#include <string>
+
 #include "config.h"
+#include "log.h"
 
 namespace raven {
 

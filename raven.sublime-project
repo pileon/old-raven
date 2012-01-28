@@ -1,0 +1,27 @@
+{
+	"folders":
+	[
+		{
+			"path": "/home/arrow/Develop/MUD/raven",
+			"file_exclude_patterns": [
+				"*~",
+				"Makefile.in", "Makefile", "aclocal.m4",
+				"config.log", "config.status", "configure", "libtool"
+			],
+			"folder_exclude_patterns": [
+				"autom4te.cache", "src"
+			]
+		},
+		{
+			"path": "/home/arrow/Develop/MUD/raven/src",
+			"file_exclude_patterns": [
+				"src/raven", "*~",
+				"Makefile.in", "Makefile", ".dirstamp", "placeholder",
+				"host/autoconf.h.in", "host/autoconf.h", "host/stamp-h1"
+			],
+			"folder_exclude_patterns": [
+				".deps", ".libs"
+			]
+		}
+	]
+}

@@ -1,11 +1,3 @@
-######################################################################
-# File: README                                     Part of The Raven #
-#                                                                    #
-# Copyright (C) 2011, Joachim Pileborg and individual contributors.  #
-# All rights reserved.                                               #
-#                                                                    #
-######################################################################
-
 =========
 The Raven
 =========
@@ -58,12 +50,18 @@ Prerequisites
 
 Tools
 ~~~~~
-* GNU C++ compiler, version 4.6 or later
+* GNU C++ compiler, version 4.6 or later.
 * GNU Make version 3.80 or later.
 
 Libraries
 ~~~~~~~~~
+* BOOST, version 1.46 or later.
+
+Configuring the source
+----------------------
 
 Building
 --------
-Standing in the top directory, a simple `make` will be enough.
+
+Installation
+------------

@@ -1,6 +1,6 @@
 /* -*- coding: utf-8 -*- */
 /* *******************************************************************
-* File:                                            Part of The Raven *
+* File: host/posix/main.cpp                        Part of The Raven *
 *                                                                    *
 * Copyright (C) 2011, Joachim Pileborg and individual contributors.  *
 * All rights reserved.                                               *
