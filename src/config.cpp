@@ -45,9 +45,15 @@ namespace config {
 // Private namespace to contain all configuration settings
 namespace
 {
+	std::map<std::string, boost::any> values;
 }
 
 /* **************************************************************** */
+
+std::map<std::string, boost::any> &get_values()
+{
+	return values;
+}
 
 /* **************************************************************** */
 

@@ -127,9 +127,10 @@ int main(int argc, char *argv[])
 
     LOG(debug, "hello world!");
 
-    config::any v = std::string("hello");
-    LOG(debug, "v = \"" << config::any_cast<std::string>(v) << "\"");
-
+    config::set("kalle", std::string("olle"));
+    config::set("pelle", 1234);
+    LOG(debug, "kalle = \"" << config::get<std::string>("kalle") << "\"");
+    LOG(debug, "pelle = " << config::get<int>("pelle"));
     // run();
 
     clean();

@@ -37,15 +37,11 @@
 *                                                                    *
 ******************************************************************* */
 
+#include <map>
 #include <boost/any.hpp>
-
-/* **************************************************************** */
 
 namespace raven {
 namespace config {
-
-using boost::any;
-using boost::any_cast;
 
 /* **************************************************************** */
 
@@ -53,6 +49,31 @@ using boost::any_cast;
 // TODO: Function for parsing arguments
 // TODO: Function for reading and parsing configuration file
 // TODO: Functions to get/set configuration variables
+
+template<typename T>
+inline T &get(const std::string &name)
+{
+	std::map<std::string, boost::any> &get_values();
+
+	auto valuei = get_values().find(name);
+	if (valuei == get_values().end())
+	{
+		auto p = get_values().insert(
+			std::pair<std::string, boost::any>{ name, boost::any{} });
+		valuei = p.first;
+	}
+
+	return boost::any_cast<T&>((*valuei).second);
+}
+
+template<typename T>
+inline void set(const std::string &name, const T &value)
+{
+	std::map<std::string, boost::any> &get_values();
+
+	get_values().insert(
+		std::pair<std::string, boost::any>{ name, value });
+}
 
 /* **************************************************************** */
 
