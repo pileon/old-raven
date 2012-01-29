@@ -79,7 +79,8 @@ namespace
     {
         for (int i = 0; i < 16; i++)
             std::cout << " ";
-        std::cout << u8"\u2554\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2557\n";
+        std::cout << u8"\u2554\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550"
+                     u8"\u2550\u2550\u2550\u2557\n";
 
         for (int i = 0; i < 16; i++)
             std::cout << u8"\u2500";
@@ -90,7 +91,8 @@ namespace
 
         for (int i = 0; i < 16; i++)
             std::cout << " ";
-        std::cout << u8"\u255a\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u255d\n";
+        std::cout << u8"\u255a\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550"
+                     u8"\u2550\u2550\u2550\u255d\n";
     }
 
     void draw_end_title()
@@ -124,10 +126,11 @@ int main(int argc, char *argv[])
     }
 
     LOG(debug, "hello world!");
-    // run();
 
-    std::cout << std::flush;
-    std::cout << std::endl;
+    config::any v = std::string("hello");
+    LOG(debug, "v = \"" << config::any_cast<std::string>(v) << "\"");
+
+    // run();
 
     clean();
     draw_end_title();

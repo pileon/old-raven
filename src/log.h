@@ -44,8 +44,10 @@
 
 namespace raven {
 
-//! \todo Use the future boost::log framework instead, wrapped in our
+//! \todo Use the future boost.log framework instead, wrapped in our
 //!       own simplified framework.
+//! \todo If not using boost.log, add the ability to log to both the
+//!       console and a file at the same time.
 namespace log {
 
 /* **************************************************************** */
